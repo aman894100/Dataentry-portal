@@ -1,0 +1,48 @@
+{% extends 'basic.html'%}
+
+{% block title %}
+register_page
+{% endblock title %}
+
+{% block css %}
+    
+{% endblock css %}
+
+{% block body %}
+	
+<!-- main -->
+<div class="main-w3layouts wrapper">
+    <h1>SignUp Form</h1>
+    <div class="main-agileinfo">
+        <div class="agileits-top">
+            <form action="/dataentry/" method="post">
+            {% csrf_token %}
+                <input class="text" type="text"  name="username" placeholder="Mobile Number" required="">
+                <input class="text email" type="email" name="email" placeholder="Email" required="">
+                
+                <input class="text" type="password" name="password" placeholder="Password" required="">
+                
+                <input class="text-age" type="text" name="age" placeholder="Age">
+
+                <div class="message" style="text-align: center; margin-top: 30px" >
+                  
+                  {% for message in messages %}
+                  <span>{{message}}</span>
+                  {% endfor %}
+                 
+                  
+                </div>
+               
+                <input type="submit" value="SIGNUP">
+            </form>
+            <p>Don't have an Account? <a href="/dataentry/login"> Login Now!</a></p>
+        </div>
+    </div>
+</div>
+<!-- //main -->
+{% endblock body %}
+
+{% block js %}
+
+
+{% endblock js %}

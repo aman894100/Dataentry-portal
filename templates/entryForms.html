@@ -1,0 +1,89 @@
+
+{% extends 'basic.html' %}
+
+{% block title %}
+DataEntry Forms
+{% endblock title %}
+
+{% block css %}
+.text{
+    margin-top: 30px;
+}
+
+.anim{
+    margin-top: 20px;
+    
+}
+{% endblock css %}
+
+{% block body %}
+
+<label class="anim" style="margin-left: 85%;"><b>Welcome {{user.username}}</b>
+<a class="logout" href="/dataentry/"><b>Logout</b></a>
+</label>
+
+{% if not custms %}
+<div class="main-w3layouts wrapper">
+    <h1><b>Areawise Details</b></h1>
+    <div class="main-agileinfo">
+        <div class="agileits-top">
+        
+            <form action="/dataentry/entryForms" method="post">
+            {% csrf_token %}
+                <input class="text"  type="text"  name="area" placeholder="Area you visited yesterday for marketing..." required="">
+                <input class="text" type="email" name="totalPerson" placeholder="Total Person you approached..." required="">
+                
+                <input class="text" type="text" name="leads" placeholder=" Number of leads converted..." required="">
+               
+                <input type="submit" value="Submit">
+            </form>
+    
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+<div class="main-w3layouts wrapper">
+    <h1><b>Details Of The Customer</b></h1>
+    <div class="main-agileinfo">
+        <div class="agileits-top">
+        {% if not custms %}
+            <form action="/dataentry/entryForms" method="post">
+              {% csrf_token %}
+                <input class="text" type="text" name="name" placeholder="Name" required="">
+                <input class="text" type="text" name="age" placeholder="Age" required="">
+                <input class="text" type="text" name="gender" placeholder="Gender" required="">
+                <input class="text" type="text" name="familyMembers" placeholder="Number of members in family" required="">
+               <label class="anim"> Date-Of-Birth
+                <input class="text" type="date" name="dob" placeholder="Date-Of-Birth" required="">
+                </label>
+                <label class="anim" style="margin-left: 35%;"> Date Of Approach
+                <input class="text" type="date" name="doa"  placeholder="Date Of Approach" required="">
+                </label>
+                <input type="submit" value="Submit">
+            </form>
+        {% endif %}
+        
+        {% if custms %}
+
+        <form action="/dataentry/updateForm" method="POST">
+              {% csrf_token %}
+                <input class="text" type="text" name="name" value="{{ custms.name}}" placeholder="Name" required="">
+                <input class="text" type="text" name="age" value="{{ custms.age }}" placeholder="Age"  required="">
+                <input class="text" type="text" name="gender" value="{{custms.gender}}" placeholder="Gender" required="">
+                <input class="text" type="text" name="familyMembers" value="{{custms.family_members}}" placeholder="familyMembers"  required="">
+               <label class="anim"> Date-Of-Birth
+                <input class="text" type="date" name="dob" value="{{custms.dob}}" placeholder="Date-Of-Birth"  required="">
+                </label>
+                <label class="anim"> Date Of Approach
+                <input class="text" type="date" name="doa"  value="{{custms.doa}}" placeholder="Date-Of-Approach" required="">
+                </label>
+                <input type="submit" value="Edit">
+            </form>
+        {% endif %}
+        
+        </div>
+    </div>
+</div>
+{% endblock %}
